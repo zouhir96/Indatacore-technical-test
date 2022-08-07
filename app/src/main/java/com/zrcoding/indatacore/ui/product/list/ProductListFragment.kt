@@ -23,7 +23,9 @@ import com.zrcoding.indatacore.ui.shared.CartSharedViewModel
 import com.zrcoding.indatacore.ui.shared.CenterZoomLinearLayoutManager
 import com.zrcoding.indatacore.ui.shared.ItemClick
 import com.zrcoding.indatacore.ui.shared.Product
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductListFragment : Fragment(), ItemClick<Product> {
 
     companion object {

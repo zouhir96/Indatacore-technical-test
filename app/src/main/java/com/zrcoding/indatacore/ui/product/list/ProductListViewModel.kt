@@ -4,15 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zrcoding.indatacore.core.Resource
 import com.zrcoding.indatacore.data.repository.ProductRepository
-import com.zrcoding.indatacore.data.repository.ProductRepositoryImpl
-import com.zrcoding.indatacore.data.sources.fake.FakeDataSource
 import com.zrcoding.indatacore.ui.shared.Product
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductListViewModel : ViewModel() {
-    private val productRepository: ProductRepository = ProductRepositoryImpl(FakeDataSource())
+@HiltViewModel
+class ProductListViewModel @Inject constructor(
+    private val productRepository: ProductRepository
+) : ViewModel() {
 
     private val _productList: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
     val productList: StateFlow<List<Product>> = _productList

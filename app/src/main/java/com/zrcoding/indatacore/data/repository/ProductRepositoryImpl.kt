@@ -6,8 +6,9 @@ import com.zrcoding.indatacore.ui.shared.Cart
 import com.zrcoding.indatacore.ui.shared.Product
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class ProductRepositoryImpl(
+class ProductRepositoryImpl @Inject constructor(
     private val fakeDataSource: FakeDataSource // todo replace by local and remote data sources
 ) : ProductRepository {
     override fun getProducts(): Flow<Resource<List<Product>>> = flow {

@@ -16,8 +16,9 @@ import com.zrcoding.indatacore.ui.MainActivity
 import com.zrcoding.indatacore.ui.product.details.KEY_ID
 import com.zrcoding.indatacore.ui.shared.CartSharedViewModel
 import com.zrcoding.indatacore.ui.shared.Product
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CartFragment : Fragment(), CartProductAdapterListener {
 
     companion object {

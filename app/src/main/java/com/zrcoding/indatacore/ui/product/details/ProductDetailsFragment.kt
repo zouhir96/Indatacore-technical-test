@@ -11,10 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.databinding.FragmentProductDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 const val KEY_ID = "com.zrcoding.indatacore.ui.product.details.ID"
 
+@AndroidEntryPoint
 class ProductDetailsFragment : DialogFragment() {
 
     companion object {

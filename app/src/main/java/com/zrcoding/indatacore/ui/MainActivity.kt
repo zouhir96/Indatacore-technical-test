@@ -6,7 +6,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.ui.widgets.Steps
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
