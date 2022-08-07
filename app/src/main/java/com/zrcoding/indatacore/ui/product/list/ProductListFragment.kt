@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,8 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.initUi()
+
+        observeData()
     }
 
     override fun onDestroyView() {
@@ -83,12 +86,11 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
         )
 
         productListRv.adapter = productListAdapter
-        productListAdapter.refreshList(viewModel.getProductList())
 
-        chosenProduct = viewModel.getProductList()[0]
-
-        productCountBtn.text =
-            getString(R.string.product_count, cartSharedViewModel.getProductCount())
+        productCountBtn.text = getString(
+            R.string.product_count,
+            cartSharedViewModel.getProductCount()
+        )
 
         continueBtn.setOnClickListener {
             if (cartSharedViewModel.canContinue()) {
@@ -133,6 +135,15 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
                 R.string.product_count,
                 cartSharedViewModel.getProductCount()
             )
+        }
+    }
+
+    private fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.productList.collect {
+                productListAdapter.refreshList(it)
+                binding.productChooser.product = it[0]
+            }
         }
     }
 

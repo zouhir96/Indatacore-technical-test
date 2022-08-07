@@ -8,20 +8,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.databinding.FragmentProductDetailsBinding
+import kotlinx.coroutines.flow.collectLatest
 
 const val KEY_ID = "com.zrcoding.indatacore.ui.product.details.ID"
 
 class ProductDetailsFragment : DialogFragment() {
 
     companion object {
-        fun newInstance(id: String): ProductDetailsFragment {
-            return ProductDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(KEY_ID, "")
-                }
-            }
+        fun newInstance(): ProductDetailsFragment {
+            return ProductDetailsFragment()
         }
     }
 
@@ -34,6 +32,15 @@ class ProductDetailsFragment : DialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         return dialog
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            it.getString(KEY_ID)?.let { id ->
+                viewModel.getProduct(id)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -51,18 +58,21 @@ class ProductDetailsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.lifecycleOwner = viewLifecycleOwner
-        arguments?.let {
-            it.getString(KEY_ID)?.let { id ->
-                binding.product = viewModel.getProduct(id)
-            }
-        }
 
         binding.initUi()
+        observeData()
     }
 
     private fun FragmentProductDetailsBinding.initUi() {
         cancelBtn.setOnClickListener { dismiss() }
+    }
+
+    private fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.product.collectLatest {
+                binding.product = it
+            }
+        }
     }
 }
