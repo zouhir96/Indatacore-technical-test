@@ -1,16 +1,9 @@
 package com.zrcoding.indatacore.ui.product.details
 
 import androidx.lifecycle.ViewModel
-import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.ui.shared.Product
+import com.zrcoding.indatacore.ui.shared.fakeProductList
 
 class ProductDetailsViewModel : ViewModel() {
-    fun getProduct(string: String?): Product {
-        return Product(
-            name = "PACK REFLEX 25",
-            description = ".Retraits et paiements au Maroc et à l’étranger\n.E-paiement sur les sites nationaux et internationaux\\n.Des plafonds ajustables selon vos besoins : Au Maroc, jusqu’à 5 000 Dhs de retraits par jour et jusqu’à 10 000 Dhs de paiements par semaine et à l’étranger dans la limite de votre dotation à l’international\n.Vos retraits gratuits dans tous les Guichets automatiques bancaires BMCI",
-            type = "CARTE VISA",
-            image = R.drawable.card1
-        )
-    }
+    fun getProduct(id: String): Product? = fakeProductList.find { id == it.id }
 }

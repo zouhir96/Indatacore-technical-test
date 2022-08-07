@@ -9,4 +9,5 @@
     <string name="remove_from_cart">Retirer du panier</string>
     <string name="add_another_product">Ajouter un autre produit ?</string>
     <string name="cart_product_count">Votre panier contient %d produit(s)</string>
+    <string name="please_select_at_least_on_product">vous devez choisir au moin un produit</string>
 </resources>

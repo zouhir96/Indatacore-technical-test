@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.databinding.FragmentCartBinding
 import com.zrcoding.indatacore.ui.MainActivity
+import com.zrcoding.indatacore.ui.product.details.KEY_ID
+import com.zrcoding.indatacore.ui.shared.CartSharedViewModel
 import com.zrcoding.indatacore.ui.shared.Product
 
 
@@ -27,7 +29,7 @@ class CartFragment : Fragment(), CartProductAdapterListener {
 
     private val cartProductAdapter = CartProductAdapter(listener = this)
 
-    private val viewModel: CartViewModel by viewModels()
+    private val cartSharedViewModel by activityViewModels<CartSharedViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,8 +59,9 @@ class CartFragment : Fragment(), CartProductAdapterListener {
     private fun FragmentCartBinding.initUi() {
         PagerSnapHelper().attachToRecyclerView(productListRv)
         productListRv.adapter = cartProductAdapter
-        cartProductAdapter.refreshList(viewModel.getCartProductList())
+        cartProductAdapter.refreshList(cartSharedViewModel.getCartProductList())
 
+        addProductTv.setOnClickListener { findNavController().popBackStack() }
         footer.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
@@ -66,12 +69,17 @@ class CartFragment : Fragment(), CartProductAdapterListener {
         findNavController().navigate(
             R.id.action_cartFragment_to_productDetailsFragment,
             Bundle().apply {
-                putString("id", "id")
+                putString(KEY_ID, product.id)
             }
         )
     }
 
     override fun onRemoveClicked(product: Product) {
-        TODO("Not yet implemented")
+        cartSharedViewModel.removeProduct(product)
+        cartProductAdapter.removeItem(product)
+    }
+
+    override fun onCartCleared() {
+        findNavController().popBackStack()
     }
 }

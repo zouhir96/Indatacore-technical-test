@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.databinding.FragmentProductDetailsBinding
 
-private const val KEY_ID = "com.zrcoding.indatacore.ui.product.details.ID"
+const val KEY_ID = "com.zrcoding.indatacore.ui.product.details.ID"
 
 class ProductDetailsFragment : DialogFragment() {
 
@@ -54,7 +54,9 @@ class ProductDetailsFragment : DialogFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         arguments?.let {
-            binding.product = viewModel.getProduct(it.getString(KEY_ID))
+            it.getString(KEY_ID)?.let { id ->
+                binding.product = viewModel.getProduct(id)
+            }
         }
 
         binding.initUi()

@@ -19,6 +19,16 @@ class CartProductAdapter(
         notifyItemRangeInserted(0, newList.size)
     }
 
+    fun removeItem(product: Product) {
+        val position = this.products.indexOf(product)
+        this.products.remove(product)
+        if (this.products.isEmpty()) {
+            listener.onCartCleared()
+        } else {
+            notifyItemRemoved(position)
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),

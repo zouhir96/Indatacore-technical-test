@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -15,6 +17,8 @@ import com.zrcoding.indatacore.R
 import com.zrcoding.indatacore.databinding.FragmentProductListBinding
 import com.zrcoding.indatacore.databinding.LayoutProductChooserBinding
 import com.zrcoding.indatacore.ui.MainActivity
+import com.zrcoding.indatacore.ui.product.details.KEY_ID
+import com.zrcoding.indatacore.ui.shared.CartSharedViewModel
 import com.zrcoding.indatacore.ui.shared.CenterZoomLinearLayoutManager
 import com.zrcoding.indatacore.ui.shared.ItemClick
 import com.zrcoding.indatacore.ui.shared.Product
@@ -32,6 +36,7 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
     private val snapHelper: SnapHelper = PagerSnapHelper()
 
     private val viewModel by viewModels<ProductListViewModel>()
+    private val cartSharedViewModel by activityViewModels<CartSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,12 +87,21 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
 
         chosenProduct = viewModel.getProductList()[0]
 
-        productCountBtn.text = getString(R.string.product_count, 0)
+        productCountBtn.text =
+            getString(R.string.product_count, cartSharedViewModel.getProductCount())
 
         continueBtn.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_productListFragment_to_cartFragment
-            )
+            if (cartSharedViewModel.canContinue()) {
+                findNavController().navigate(
+                    R.id.action_productListFragment_to_cartFragment
+                )
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.please_select_at_least_on_product),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         binding.productChooser.initUi()
     }
@@ -104,15 +118,21 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
             }
         }
         detailsBtn.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_productListFragment_to_productDetailsFragment,
-                Bundle().apply {
-                    putString("id", "id")
-                }
-            )
+            product?.let {
+                findNavController().navigate(
+                    R.id.action_productListFragment_to_productDetailsFragment,
+                    Bundle().apply {
+                        putString(KEY_ID, it.id)
+                    }
+                )
+            }
         }
         addToCartBtn.setOnClickListener {
-
+            cartSharedViewModel.addProduct(product)
+            binding.productCountBtn.text = getString(
+                R.string.product_count,
+                cartSharedViewModel.getProductCount()
+            )
         }
     }
 
@@ -120,11 +140,11 @@ class ProductListFragment : Fragment(), ItemClick<Product> {
         binding.productChooser.product = item
     }
 
-    private fun getCurrentItemPosition(): Int? =
-        snapHelper.findSnapView(binding.productListRv.layoutManager)?.let {
-            binding.productListRv.getChildAdapterPosition(
-                it
-            )
-        }
-
+    private fun getCurrentItemPosition(): Int? = snapHelper.findSnapView(
+        binding.productListRv.layoutManager
+    )?.let {
+        binding.productListRv.getChildAdapterPosition(
+            it
+        )
+    }
 }
