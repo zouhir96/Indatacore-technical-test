@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">indatacore-test</string>
+    <string name="title_home">Ma séléction d’offre personalisée</string>
+    <string name="title_cart">Mon panier</string>
+    <string name="product_count">%d products</string>
+    <string name="continuer">continue</string>
+    <string name="add_to_cart">Ajouter au painer</string>
+    <string name="details">Détails</string>
+    <string name="remove_from_cart">Retirer du panier</string>
+    <string name="add_another_product">Ajouter un autre produit ?</string>
+    <string name="cart_product_count">Votre panier contient %d produit(s)</string>
 </resources>

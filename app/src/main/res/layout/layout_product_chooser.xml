@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.zrcoding.indatacore.ui.shared.Product" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="22dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/previous_btn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:icon="@drawable/ic_arrow_left_24"
+                    app:iconGravity="textStart"
+                    app:iconSize="50dp"
+                    app:iconTint="@color/orange" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/next_btn"
+                    android:layout_toEndOf="@+id/previous_btn"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{product.name}"
+                        android:textAppearance="@style/productTitleTextAppearance"
+                        tools:text="PACK REFLEX 25" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{product.type}"
+                        android:textAppearance="@style/productSubtitleTextAppearance"
+                        tools:text="CARTE VISA" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/next_btn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:icon="@drawable/ic_arrow_right_24"
+                    app:iconGravity="textStart"
+                    app:iconSize="50dp"
+                    app:iconTint="@color/orange" />
+            </RelativeLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:maxLines="3"
+                android:text="@{product.description}"
+                android:textAppearance="?attr/textAppearanceCaption"
+                tools:text=".Retraits et paiements au Maroc et à l’étranger \n.E-paiement sur les sites nationaux et internationaux" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/details_btn"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/details"
+                    android:textColor="@color/orange"
+                    app:icon="@drawable/ic_add_circle_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/orange"
+                    app:strokeColor="@color/orange" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_to_cart_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_marginStart="18dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/add_to_cart"
+                    android:textColor="@color/orange"
+                    app:icon="@drawable/ic_add_shopping_cart"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/orange"
+                    app:strokeColor="@color/orange" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+</layout>
