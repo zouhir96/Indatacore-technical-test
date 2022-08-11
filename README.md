@@ -5,7 +5,8 @@
 This project is a challenge to get interviewed for a Job Position
 at [indatacore.com](https://indatacore.com/index.php/fr/accueil/)
 The idea is to develop and android application giving a design
-file [figma-link](https://www.figma.com/file/v5m4hbfYR4qPO4NzxYisUS/PFE-Quiz-17.02.2022?node-id=0%3A1)
+<p align="center"><img src="./images/design.png" /> </p>
+figma file [figma-link](https://www.figma.com/file/v5m4hbfYR4qPO4NzxYisUS/PFE-Quiz-17.02.2022?node-id=0%3A1)
 
 ## 🔨 Stack
 
