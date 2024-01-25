@@ -10,108 +10,90 @@
             type="com.zrcoding.indatacore.ui.shared.Product" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.product.list.ProductListFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="84dp">
+            android:layout_height="0dp"
+            android:background="@drawable/shape_rounded_top"
+            android:layout_marginTop="-30dp"
+            app:layout_constraintBottom_toTopOf="@+id/footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_list_rv" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/shape_rounded_top"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline1" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="115dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="4"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/product_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:orientation="horizontal"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="4"
-                tools:listitem="@layout/item_product" />
+        <include
+            android:id="@+id/product_chooser"
+            layout="@layout/layout_product_chooser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_list_rv"
+            app:product="@{chosenProduct}" />
 
-            <include
-                android:id="@+id/product_chooser"
-                layout="@layout/layout_product_chooser"
-                android:layout_width="match_parent"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/product_count_btn"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="12dp"
-                app:product="@{chosenProduct}"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_list_rv" />
+                android:layout_marginEnd="18dp"
+                android:layout_weight="0.5"
+                android:enabled="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/product_count"
+                android:textColor="@color/chinese_silver"
+                app:icon="@drawable/ic_add_shopping_cart"
+                app:iconGravity="textStart"
+                app:iconTint="@color/orange_80"
+                app:strokeColor="@color/chinese_silver" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/footer"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continue_btn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_marginStart="18dp"
+                android:layout_weight="0.5"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/continuer"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/orange_80"
+                app:icon="@drawable/ic_arrow_forward"
+                app:iconGravity="textEnd"
+                app:iconTint="@color/white" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/product_count_btn"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
-                    android:layout_weight="0.5"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/product_count"
-                    android:textColor="@color/chinese_silver"
-                    android:enabled="false"
-                    app:icon="@drawable/ic_add_shopping_cart"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/orange_80"
-                    app:strokeColor="@color/chinese_silver" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/continue_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_weight="0.5"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/continuer"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/orange_80"
-                    app:icon="@drawable/ic_arrow_forward"
-                    app:iconGravity="textEnd"
-                    app:iconTint="@color/white" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

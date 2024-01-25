@@ -58,6 +58,10 @@ class CartFragment : Fragment(), CartProductAdapterListener {
     }
 
     private fun FragmentCartBinding.initUi() {
+        title.text = getString(
+            R.string.cart_product_count,
+            cartSharedViewModel.getProductCount()
+        )
         PagerSnapHelper().attachToRecyclerView(productListRv)
         productListRv.adapter = cartProductAdapter
         cartProductAdapter.refreshList(cartSharedViewModel.getCartProductList())
